@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Isela, Con Todo Mi Amor 💖</title>
+    <meta name="description" content="Un rincón digital de amor y poesía creado especialmente para Isela, celebrando cada momento y detalle a su lado con profunda ternura.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background Canvas for Interactive Particles -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Ambient Sparkle Effect Overlay -->
+    <div id="sparkle-overlay"></div>
+
+    <!-- Music Player Synth Controller -->
+    <div id="music-controller" class="music-btn" title="Caja de Música de Amor">
+        <i id="music-icon" class="fa-solid fa-music"></i>
+        <span class="music-tooltip">Tocar melodía</span>
+    </div>
+
+    <!-- Main Container -->
+    <main id="main-container">
+        
+        <!-- SECTION 0: The Interactive Envelope (Landing View) -->
+        <section id="landing-section" class="active-section">
+            <div id="envelope-wrapper">
+                <div id="love-letter-envelope" class="envelope">
+                    <div class="flap top-flap"></div>
+                    <div class="flap left-flap"></div>
+                    <div class="flap right-flap"></div>
+                    <div class="envelope-pocket"></div>
+                    <div id="envelope-wax-seal" class="wax-seal">
+                        <i class="fa-solid fa-heart animate-pulse"></i>
+                        <span class="seal-prompt">Abrir carta</span>
+                    </div>
+                </div>
+                <div id="letter-preview-card" class="glass-card">
+                    <h1 id="landing-title">Para Isela</h1>
+                    <p id="landing-subtitle">El latido constante de mi vida...</p>
+                    <p class="landing-text">He creado este rincón mágico para recordarte cuánto te amo. Abre esta carta con un clic en el corazón y adéntrate en las páginas de nuestra historia.</p>
+                    <button id="btn-open-letter" class="btn-primary">Entrar al Álbum de Amor</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Album Content Layout (Hidden until envelope is opened) -->
+        <div id="album-content-layout" class="hidden">
+            
+            <!-- Shared Header and Navigation -->
+            <header id="app-header">
+                <h1 id="app-main-title" class="dancing-font">Para Isela, con todo mi amor</h1>
+                <nav id="album-navigation">
+                    <button id="nav-btn-home" class="nav-item active-nav" data-target="home-section">
+                        <i class="fa-solid fa-house"></i> <span>Inicio</span>
+                    </button>
+                    <button id="nav-btn-pareja" class="nav-item" data-target="pareja-section">
+                        <i class="fa-solid fa-user-friends"></i> <span>Nosotros</span>
+                    </button>
+                    <button id="nav-btn-mariposas" class="nav-item" data-target="mariposas-section">
+                        <i class="fa-solid fa-bug"></i> <span>Tu Belleza</span>
+                    </button>
+                    <button id="nav-btn-corazon" class="nav-item" data-target="corazon-section">
+                        <i class="fa-solid fa-heart"></i> <span>Mi Corazón</span>
+                    </button>
+                </nav>
+            </header>
+
+            <!-- SECTION 1: Home/Intro (Inside the letter) -->
+            <section id="home-section" class="album-section active-album-section">
+                <div class="glass-card inner-home-card">
+                    <div class="card-glow-bg"></div>
+                    <div class="heart-badge"><i class="fa-solid fa-heart"></i></div>
+                    <h2 class="section-title dancing-font">Bienvenida a nuestro rincón de amor</h2>
+                    <p class="love-quote">"Amar no es mirarse el uno al otro; es mirar juntos en la misma dirección."</p>
+                    <div class="divider"><i class="fa-solid fa-feather-pointed"></i></div>
+                    <p class="intro-description">
+                        Isela, mi amor por ti es inmenso. Diseñé este espacio especialmente para ti, guardando tres de tus hermosas fotos como tesoros eternos. Cada una de ellas me inspira y despierta un sentimiento tan grande que solo puede expresarse con versos nacidos del corazón.
+                    </p>
+                    <p class="intro-instruction">
+                        Navega a través de las pestañas en el menú superior para descubrir cada foto con su propio poema y revelar los pequeños secretos que he ocultado en ellas para ti.
+                    </p>
+                    <div class="navigation-tips">
+                        <span class="tip-item"><i class="fa-solid fa-music"></i> Activa la música flotante para ambientar tu lectura.</span>
+                        <span class="tip-item"><i class="fa-solid fa-sparkles"></i> Mueve tu cursor para interactuar con las mariposas y corazones.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: Couple Photo & Poem -->
+            <section id="pareja-section" class="album-section">
+                <div class="album-grid">
+                    <div class="photo-column">
+                        <div class="photo-frame-container" data-tilt>
+                            <img src="images/pareja.jpg" alt="Isela y su amor tomados de la mano" class="romantic-photo" id="img-pareja">
+                            <div class="photo-caption">Nuestra noche especial 💚</div>
+                        </div>
+                    </div>
+                    <div class="poem-column">
+                        <div class="glass-card poem-card">
+                            <h2 class="poem-title dancing-font">Nuestro Destino en un Abrazo</h2>
+                            <div class="divider"><i class="fa-solid fa-infinity"></i></div>
+                            <div class="poem-lines">
+                                <p>Vestidos de gala, el tiempo se detiene,</p>
+                                <p>mi mano en tu mano, la vida se enciende.</p>
+                                <p>El verde de tu vestido es esperanza pura,</p>
+                                <p>y estar a tu lado es mi mayor locura.</p>
+                                <br>
+                                <p>De negro elegante yo visto mi alma,</p>
+                                <p>porque tu sonrisa me devuelve la calma.</p>
+                                <p>Caminamos juntos, paso a paso el destino,</p>
+                                <p>haciendo del amor un eterno camino.</p>
+                                <br>
+                                <p>Te amo, Isela, en cada gala y en cada día,</p>
+                                <p>eres mi refugio, mi paz y mi alegría.</p>
+                            </div>
+                            <button id="btn-secret-pareja" class="btn-secondary">
+                                <i class="fa-solid fa-envelope-open-text"></i> Revelar Mensaje Secreto
+                            </button>
+                            <div id="secret-msg-pareja" class="secret-message hidden-message">
+                                <p>Sostener tu mano en esa noche fue el momento más mágico de mi vida. Me sentí el hombre más afortunado del universo al caminar a tu lado. Prometo tomar tu mano para siempre y nunca soltarte, afrontando cada paso del camino juntos. Eres mi mundo entero. 💕</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Butterfly Photo & Poem -->
+            <section id="mariposas-section" class="album-section">
+                <div class="album-grid reverse-grid">
+                    <div class="poem-column">
+                        <div class="glass-card poem-card">
+                            <h2 class="poem-title dancing-font">El Vuelo de tu Belleza</h2>
+                            <div class="divider"><i class="fa-solid fa-wind"></i></div>
+                            <div class="poem-lines">
+                                <p>Hasta las mariposas se rinden ante ti,</p>
+                                <p>buscando el perfume que emanas al vivir.</p>
+                                <p>Se posan en tu rostro, corona de tu encanto,</p>
+                                <p>dibujando en tu piel lo que te amo y te canto.</p>
+                                <br>
+                                <p>Tus ojos oscuros, dos perlas de misterio,</p>
+                                <p>que reinan constantes en mi alma y mi imperio.</p>
+                                <p>Un aleteo de amor despiertas en mi pecho,</p>
+                                <p>sabiendo que mi vida por ti se ha hecho.</p>
+                                <br>
+                                <p>Isela de mi vida, eres mi eterna primavera,</p>
+                                <p>el ángel más dulce que mi corazón espera.</p>
+                            </div>
+                            <button id="btn-secret-mariposas" class="btn-secondary">
+                                <i class="fa-solid fa-envelope-open-text"></i> Revelar Mensaje Secreto
+                            </button>
+                            <div id="secret-msg-mariposas" class="secret-message hidden-message">
+                                <p>Incluso con ese filtro juguetón de mariposas, tu verdadera belleza eclipsa cualquier fantasía. Tienes la mirada más dulce y expresiva del universo. Adoro tu alegría y cada pequeño detalle de tu rostro. ¡Eres mi primavera eterna, Isela hermosa! 🦋✨</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-column">
+                        <div class="photo-frame-container" data-tilt>
+                            <img src="images/mariposas.jpg" alt="Isela con filtro de hermosas mariposas en su rostro" class="romantic-photo" id="img-mariposas">
+                            <div class="photo-caption">Tu encanto natural 🦋</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: Heart Photo & Poem -->
+            <section id="corazon-section" class="album-section">
+                <div class="album-grid">
+                    <div class="photo-column">
+                        <div class="photo-frame-container" data-tilt>
+                            <img src="images/corazon.jpg" alt="Isela mirando fijamente con un corazón pixelado a su lado" class="romantic-photo" id="img-corazon">
+                            <div class="photo-caption">En cada latido de mi vida ❤️</div>
+                        </div>
+                    </div>
+                    <div class="poem-column">
+                        <div class="glass-card poem-card">
+                            <h2 class="poem-title dancing-font">Latidos en Cada Píxel</h2>
+                            <div class="divider"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div class="poem-lines">
+                                <p>Un corazón rojo, brillante y sincero,</p>
+                                <p>flota a tu lado gritando cuánto te quiero.</p>
+                                <p>No importa si en píxeles o en la realidad entera,</p>
+                                <p>tú eres la dueña de mi vida y mi quimera.</p>
+                                <br>
+                                <p>Tu mirada serena, tan dulce y profunda,</p>
+                                <p>es la luz divina que mi mundo inunda.</p>
+                                <p>Un gesto sencillo, tu belleza natural,</p>
+                                <p>hace que mi amor por ti sea inmortal.</p>
+                                <br>
+                                <p>Cada latido es tuyo, cada segundo es fe,</p>
+                                <p>te amo con locura, Isela, ¡siempre te amaré!</p>
+                            </div>
+                            <button id="btn-secret-corazon" class="btn-secondary">
+                                <i class="fa-solid fa-envelope-open-text"></i> Revelar Mensaje Secreto
+                            </button>
+                            <div id="secret-msg-corazon" class="secret-message hidden-message">
+                                <p>Ese pequeño corazón pixelado en tu foto me recuerda que mi amor por ti es constante, sin importar la distancia, el formato o el tiempo. En cada latido de mi propio corazón estás tú. Eres mi inspiración diaria, mi amor eterno e incondicional. ¡Te amo con toda mi alma! ❤️🌹</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Floating Footer with love signature -->
+    <footer id="app-footer" class="hidden">
+        <p>Hecho con todo el amor del mundo para ti, mi reina Isela 💖 2026</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>
