@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     // Define tu fecha de aniversario aquí (Formato: AAAA-MM-DDTHH:MM:SS)
     // Por defecto es el 12 de Octubre de 2024. ¡Puedes cambiarla libremente!
-    const startDate = new Date("2024-10-12T00:00:00");
+    const startDate = new Date("2024-11-21T00:00:00");
 
     function updateLoveCounter() {
         const now = new Date();
