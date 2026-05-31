@@ -395,11 +395,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let ytReady = false;
     let useWebAudioFallback = false;
 
-    // Dynamically load YouTube Iframe Player API
+    // Dynamically load YouTube Iframe Player API safely
     const tag = document.createElement("script");
     tag.src = "https://www.youtube.com/iframe_api";
     const firstScriptTag = document.getElementsByTagName("script")[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    if (firstScriptTag && firstScriptTag.parentNode) {
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    } else {
+        document.head.appendChild(tag);
+    }
 
     // YouTube global callback
     window.onYouTubeIframeAPIReady = function() {
@@ -416,8 +420,9 @@ document.addEventListener("DOMContentLoaded", () => {
             events: {
                 onReady: () => {
                     ytReady = true;
-                    // If the user already activated play, play it now!
+                    // If the user already activated play, stop the fallback and start YouTube!
                     if (musicPlaying && !useWebAudioFallback) {
+                        clearTimeout(sequencerTimer); // Clean transition hand-off
                         try {
                             ytPlayer.playVideo();
                         } catch(e) {
