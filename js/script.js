@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const photoFrame = button.closest(".album-grid").querySelector(".photo-frame-container");
                     if (photoFrame) {
                         photoFrame.style.transform = "perspective(1000px) rotateX(10deg) scale(1.03)";
-                        setTimeout(() => { photoFrame.style.transform = "none"; }, 1200);
+                        setTimeout(() => { photoFrame.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)"; }, 1200);
                     }
                 } else {
                     message.classList.add("hidden-message");
@@ -169,20 +169,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("particle-canvas");
     const ctx = canvas.getContext("2d");
     
+    let canvasWidth = window.innerWidth;
+    let canvasHeight = window.innerHeight;
     let particles = [];
     const maxParticles = 65;
     
     function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvasWidth = window.innerWidth;
+        canvasHeight = window.innerHeight;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = canvasWidth * dpr;
+        canvas.height = canvasHeight * dpr;
+        ctx.scale(dpr, dpr);
     }
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
     class Particle {
         constructor(x, y, isClickBurst = false) {
-            this.x = x || Math.random() * canvas.width;
-            this.y = y || canvas.height + 20;
+            this.x = x || Math.random() * canvasWidth;
+            this.y = y || canvasHeight + 20;
             
             // Particle type: 0 = heart, 1 = butterfly, 2 = glowing sparkle dust
             this.type = isClickBurst ? (Math.random() < 0.7 ? 0 : 2) : (Math.random() < 0.6 ? 0 : 1);
@@ -265,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Main particle generator & animator loop
     function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         
         // Spawn background particles continuously
         if (particles.length < maxParticles && Math.random() < 0.05) {
@@ -276,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
             particles[i].update();
             particles[i].draw();
             
-            if (particles[i].alpha <= 0 || particles[i].y < -20 || particles[i].x < -20 || particles[i].x > canvas.width + 20) {
+            if (particles[i].alpha <= 0 || particles[i].y < -20 || particles[i].x < -20 || particles[i].x > canvasWidth + 20) {
                 particles.splice(i, 1);
             }
         }
@@ -428,17 +434,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function createMusicBoxSynthVoice(freq, duration) {
-        if (!audioCtx || audioCtx.state === "suspended") return;
+        if (!audioCtx) return;
+        
+        // Transpose up one octave for perfect delicate music box chimes
+        const baseFreq = freq * 2;
         
         // Oscillator 1 (Warm Triangle core)
         const osc = audioCtx.createOscillator();
         osc.type = "triangle";
-        osc.frequency.value = freq;
+        osc.frequency.value = baseFreq;
         
-        // Oscillator 2 (Shimmering Sine overtone + 1 octave up for pure music box quality)
+        // Oscillator 2 (Shimmering Sine overtone + 1 octave up + minor detune for chorus)
         const overtoneOsc = audioCtx.createOscillator();
         overtoneOsc.type = "sine";
-        overtoneOsc.frequency.value = freq * 2;
+        overtoneOsc.frequency.value = baseFreq * 2;
+        overtoneOsc.detune.value = 8; // 8 cents detune for sweet physical shimmer
         
         // ADSR Envelope Node
         const gainNode = audioCtx.createGain();
@@ -521,7 +531,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     
     function playSoftTone(freq, type = "sine", duration = 0.5, volume = 0.08) {
-        if (!audioCtx || audioCtx.state === "suspended") return;
+        if (!audioCtx) return;
         
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
@@ -568,6 +578,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function playInteractiveSparkleTone(screenYRatio) {
+        initAudio();
+        if (audioCtx && audioCtx.state === "suspended") {
+            audioCtx.resume();
+        }
         if (!audioCtx) return;
         // Pitch mapping based on screen click Y height (higher click = higher sound!)
         const minFreq = 440; // A4
