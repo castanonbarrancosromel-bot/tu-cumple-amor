@@ -404,8 +404,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // YouTube global callback
     window.onYouTubeIframeAPIReady = function() {
         ytPlayer = new YT.Player("youtube-player", {
-            height: "0",
-            width: "0",
+            height: "1",
+            width: "1",
             videoId: "M81lyIXsqpw",
             playerVars: {
                 autoplay: 0,

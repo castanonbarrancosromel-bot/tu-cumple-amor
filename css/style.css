@@ -991,10 +991,11 @@ body {
 
 /* Hidden YouTube Player */
 #youtube-player {
-    display: none !important;
     position: absolute;
-    width: 0;
-    height: 0;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
     opacity: 0;
     pointer-events: none;
 }
