@@ -24,6 +24,61 @@ document.addEventListener("DOMContentLoaded", () => {
     let envelopeOpened = false;
 
     // ==========================================
+    // 1.5. LOVE RELATIONSHIP COUNTER
+    // ==========================================
+    // Define tu fecha de aniversario aquí (Formato: AAAA-MM-DDTHH:MM:SS)
+    // Por defecto es el 12 de Octubre de 2024. ¡Puedes cambiarla libremente!
+    const startDate = new Date("2024-10-12T00:00:00");
+
+    function updateLoveCounter() {
+        const now = new Date();
+        const diffMs = now - startDate;
+
+        if (diffMs < 0) return; // Si la fecha es en el futuro
+
+        // Cálculos aproximados de año, mes y día de calendario
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+
+        if (days < 0) {
+            months -= 1;
+            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+            days += prevMonth.getDate();
+        }
+
+        if (months < 0) {
+            years -= 1;
+            months += 12;
+        }
+
+        // Cálculo exacto de horas, minutos y segundos transcurridos
+        const totalSeconds = Math.floor(diffMs / 1000);
+        const seconds = totalSeconds % 60;
+        const minutes = Math.floor(totalSeconds / 60) % 60;
+        const hours = Math.floor(totalSeconds / 3600) % 24;
+
+        // Inyección en el DOM
+        const yearsEl = document.getElementById("counter-years");
+        const monthsEl = document.getElementById("counter-months");
+        const daysEl = document.getElementById("counter-days");
+        const hoursEl = document.getElementById("counter-hours");
+        const minutesEl = document.getElementById("counter-minutes");
+        const secondsEl = document.getElementById("counter-seconds");
+
+        if (yearsEl) yearsEl.innerText = years;
+        if (monthsEl) monthsEl.innerText = months;
+        if (daysEl) daysEl.innerText = days;
+        if (hoursEl) hoursEl.innerText = hours;
+        if (minutesEl) minutesEl.innerText = minutes;
+        if (secondsEl) secondsEl.innerText = seconds;
+    }
+
+    // Actualizar el contador cada segundo
+    setInterval(updateLoveCounter, 1000);
+    updateLoveCounter();
+
+    // ==========================================
     // 2. ENVELOPE OPENING MECHANICS
     // ==========================================
     function openEnvelope() {
@@ -335,6 +390,54 @@ document.addEventListener("DOMContentLoaded", () => {
     let sequencerTimer = null;
     let sequenceIndex = 0;
     
+    // YouTube player integration variables
+    let ytPlayer = null;
+    let ytReady = false;
+    let useWebAudioFallback = false;
+
+    // Dynamically load YouTube Iframe Player API
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName("script")[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // YouTube global callback
+    window.onYouTubeIframeAPIReady = function() {
+        ytPlayer = new YT.Player("youtube-player", {
+            height: "0",
+            width: "0",
+            videoId: "M81lyIXsqpw",
+            playerVars: {
+                autoplay: 0,
+                controls: 0,
+                loop: 1,
+                playlist: "M81lyIXsqpw"
+            },
+            events: {
+                onReady: () => {
+                    ytReady = true;
+                    // If the user already activated play, play it now!
+                    if (musicPlaying && !useWebAudioFallback) {
+                        try {
+                            ytPlayer.playVideo();
+                        } catch(e) {
+                            useWebAudioFallback = true;
+                            sequenceIndex = 0;
+                            playMelodyStep();
+                        }
+                    }
+                },
+                onError: () => {
+                    useWebAudioFallback = true;
+                    if (musicPlaying) {
+                        sequenceIndex = 0;
+                        playMelodyStep();
+                    }
+                }
+            }
+        });
+    };
+    
     // Smooth delay node for spatial echo effect
     let delayNode = null;
     let mainGain = null;
@@ -496,23 +599,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function toggleRomanticMusic() {
         initAudio();
-        
-        if (audioCtx.state === "suspended") {
+        if (audioCtx && audioCtx.state === "suspended") {
             audioCtx.resume();
         }
         
         if (musicPlaying) {
-            // Stop playing
             musicPlaying = false;
-            clearTimeout(sequencerTimer);
+            
+            // Stop YouTube player if ready and active
+            if (ytReady && ytPlayer && !useWebAudioFallback) {
+                try {
+                    ytPlayer.pauseVideo();
+                } catch(e) {
+                    clearTimeout(sequencerTimer);
+                }
+            } else {
+                clearTimeout(sequencerTimer);
+            }
+            
             musicIcon.className = "fa-solid fa-music";
             musicController.classList.remove("playing");
             musicTooltip.innerText = "Tocar melodía";
         } else {
-            // Start playing
             musicPlaying = true;
-            sequenceIndex = 0;
-            playMelodyStep();
+            
+            // Play YouTube player if ready and active
+            if (ytReady && ytPlayer && !useWebAudioFallback) {
+                try {
+                    ytPlayer.playVideo();
+                } catch(e) {
+                    useWebAudioFallback = true;
+                    sequenceIndex = 0;
+                    playMelodyStep();
+                }
+            } else {
+                sequenceIndex = 0;
+                playMelodyStep();
+            }
+            
             musicIcon.className = "fa-solid fa-volume-high";
             musicController.classList.add("playing");
             musicTooltip.innerText = "Silenciar melodía";
