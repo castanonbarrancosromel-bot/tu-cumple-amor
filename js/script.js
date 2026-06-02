@@ -149,7 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const secrets = [
         { btn: "btn-secret-pareja", msg: "secret-msg-pareja" },
         { btn: "btn-secret-mariposas", msg: "secret-msg-mariposas" },
-        { btn: "btn-secret-corazon", msg: "secret-msg-corazon" }
+        { btn: "btn-secret-corazon", msg: "secret-msg-corazon" },
+        { btn: "btn-secret-belleza2", msg: "secret-msg-belleza2" }
     ];
     
     secrets.forEach(secret => {

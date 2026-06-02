@@ -1000,6 +1000,76 @@ body {
     pointer-events: none;
 }
 
+/* Belleza2 second photo section */
+.belleza2-grid {
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.poem-card-belleza2 {
+    border-color: rgba(255, 215, 100, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 215, 100, 0.08);
+}
+
+.poem-card-belleza2:hover {
+    border-color: rgba(255, 215, 100, 0.35);
+    box-shadow: 0 20px 45px rgba(255, 215, 100, 0.08),
+                0 0 25px rgba(255, 215, 100, 0.04),
+                inset 0 1px 1px rgba(255, 215, 100, 0.12);
+}
+
+.belleza2-badge {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 215, 100, 0.08);
+    border: 1px solid rgba(255, 215, 100, 0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 20px rgba(255, 215, 100, 0.15);
+}
+
+.belleza2-badge i {
+    color: #ffd764;
+    font-size: 24px;
+    text-shadow: 0 0 12px rgba(255, 215, 100, 0.6);
+    animation: heart-beat 2s infinite alternate;
+}
+
+.poem-card-belleza2 .poem-title {
+    color: #ffd764;
+    text-shadow: 0 0 15px rgba(255, 215, 100, 0.25);
+}
+
+.poem-card-belleza2 .divider {
+    color: #ffd764;
+}
+
+.poem-card-belleza2 .divider::before {
+    background: linear-gradient(to right, transparent, #ffd764);
+}
+
+.poem-card-belleza2 .divider::after {
+    background: linear-gradient(to left, transparent, #ffd764);
+}
+
+.poem-card-belleza2 .btn-secondary {
+    border-color: rgba(255, 215, 100, 0.4);
+    color: #ffd764;
+}
+
+.poem-card-belleza2 .btn-secondary:hover {
+    background: rgba(255, 215, 100, 0.15);
+    border-color: #ffd764;
+    box-shadow: 0 0 15px rgba(255, 215, 100, 0.2);
+    color: #fff;
+}
+
+
 /* ==========================================================================
    LOVE CALENDAR SECTION
    ========================================================================== */
