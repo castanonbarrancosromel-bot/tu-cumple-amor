@@ -74,6 +74,9 @@
                     <button id="nav-btn-corazon" class="nav-item" data-target="corazon-section">
                         <i class="fa-solid fa-heart"></i> <span>Mi Corazón</span>
                     </button>
+                    <button id="nav-btn-calendario" class="nav-item" data-target="calendario-section">
+                        <i class="fa-solid fa-calendar-heart"></i> <span>Calendario</span>
+                    </button>
                 </nav>
             </header>
 
@@ -244,6 +247,41 @@
                     </div>
                 </div>
             </section>
+
+            <!-- SECTION 5: Love Calendar -->
+            <section id="calendario-section" class="album-section">
+                <div class="calendar-wrapper">
+                    <div class="glass-card calendar-header-card">
+                        <div class="calendar-header-content">
+                            <div class="heart-badge"><i class="fa-solid fa-calendar-heart"></i></div>
+                            <h2 class="section-title dancing-font">Nuestro Calendario de Amor</h2>
+                            <p class="calendar-subtitle">Guarda recuerdos especiales en cada fecha 📅💕</p>
+                        </div>
+                        <div class="calendar-nav">
+                            <button id="cal-prev" class="cal-nav-btn" title="Mes anterior">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <h3 id="cal-month-year" class="cal-month-title">Junio 2026</h3>
+                            <button id="cal-next" class="cal-nav-btn" title="Siguiente mes">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="cal-weekdays">
+                            <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span>
+                            <span>Jue</span><span>Vie</span><span>Sáb</span>
+                        </div>
+                        <div id="cal-grid" class="cal-grid"></div>
+                    </div>
+
+                    <!-- Memory highlights panel -->
+                    <div id="cal-memories-panel" class="cal-memories-panel glass-card">
+                        <h3 class="cal-panel-title dancing-font">✨ Recuerdos del Mes</h3>
+                        <div id="cal-memories-list" class="cal-memories-list">
+                            <p class="cal-empty-msg">Haz clic en una fecha para agregar recuerdos especiales 💕</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -251,6 +289,35 @@
     <footer id="app-footer" class="hidden">
         <p>Hecho con todo el amor del mundo para ti, mi reina Isela 💖 2026</p>
     </footer>
+
+    <!-- Calendar Memory Modal -->
+    <div id="cal-modal-overlay" class="cal-modal-overlay hidden">
+        <div class="cal-modal glass-card">
+            <button id="cal-modal-close" class="cal-modal-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="cal-modal-title" class="cal-modal-date dancing-font">📅 Fecha Especial</h3>
+            <div class="cal-modal-body">
+                <!-- Existing memories -->
+                <div id="cal-modal-memories" class="cal-modal-memories"></div>
+                <!-- Add new memory -->
+                <div class="cal-add-form">
+                    <h4 class="cal-form-title"><i class="fa-solid fa-plus"></i> Agregar Recuerdo</h4>
+                    <div class="cal-photo-upload-area" id="cal-photo-drop">
+                        <i class="fa-solid fa-image"></i>
+                        <span>Haz clic para elegir una foto</span>
+                        <input type="file" id="cal-photo-input" accept="image/*" class="hidden">
+                    </div>
+                    <img id="cal-photo-preview" class="cal-photo-preview hidden" alt="Vista previa">
+                    <textarea id="cal-description" class="cal-textarea" placeholder="Escribe una descripción especial de este momento... 💕" maxlength="300" rows="3"></textarea>
+                    <div class="cal-char-count"><span id="cal-char-num">0</span>/300</div>
+                    <button id="cal-save-memory" class="btn-primary cal-save-btn">
+                        <i class="fa-solid fa-heart"></i> Guardar Recuerdo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="js/script.js"></script>

@@ -362,6 +362,322 @@ document.addEventListener("DOMContentLoaded", () => {
         particles.push(star);
     }
 
+    // ==========================================
+    // 9. LOVE CALENDAR WITH PHOTO MEMORIES
+    // ==========================================
+
+    /* --- State --- */
+    let calCurrentDate = new Date();
+    let calSelectedDateKey = null;  // "YYYY-MM-DD"
+    let calPhotoDataURL = null;     // base64 of chosen photo
+
+    /* --- DOM refs --- */
+    const calGrid        = document.getElementById("cal-grid");
+    const calMonthYear   = document.getElementById("cal-month-year");
+    const calPrev        = document.getElementById("cal-prev");
+    const calNext        = document.getElementById("cal-next");
+    const calMemoriesList = document.getElementById("cal-memories-list");
+    const calModalOverlay = document.getElementById("cal-modal-overlay");
+    const calModalClose   = document.getElementById("cal-modal-close");
+    const calModalTitle   = document.getElementById("cal-modal-title");
+    const calModalMemories = document.getElementById("cal-modal-memories");
+    const calPhotoInput   = document.getElementById("cal-photo-input");
+    const calPhotoDrop    = document.getElementById("cal-photo-drop");
+    const calPhotoPreview = document.getElementById("cal-photo-preview");
+    const calDescription  = document.getElementById("cal-description");
+    const calCharNum      = document.getElementById("cal-char-num");
+    const calSaveMemory   = document.getElementById("cal-save-memory");
+
+    /* --- Storage helpers --- */
+    const CAL_STORAGE_KEY = "amor_isela_calendar_v1";
+
+    function calLoad() {
+        try {
+            return JSON.parse(localStorage.getItem(CAL_STORAGE_KEY)) || {};
+        } catch (e) { return {}; }
+    }
+
+    function calSave(data) {
+        localStorage.setItem(CAL_STORAGE_KEY, JSON.stringify(data));
+    }
+
+    /* --- Month/year label --- */
+    const MONTHS_ES = [
+        "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+        "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
+    ];
+
+    function calFormatMonth(date) {
+        return `${MONTHS_ES[date.getMonth()]} ${date.getFullYear()}`;
+    }
+
+    /* --- Render calendar grid --- */
+    function calRender() {
+        if (!calGrid) return;
+
+        const data = calLoad();
+        const year  = calCurrentDate.getFullYear();
+        const month = calCurrentDate.getMonth();
+        const today = new Date();
+
+        calMonthYear.textContent = calFormatMonth(calCurrentDate);
+
+        // First weekday of this month (0=Sun)
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        calGrid.innerHTML = "";
+
+        // Empty cells before day 1
+        for (let e = 0; e < firstDay; e++) {
+            const empty = document.createElement("div");
+            empty.className = "cal-day empty";
+            calGrid.appendChild(empty);
+        }
+
+        // Day cells
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dayEl  = document.createElement("div");
+            const dateKey = `${year}-${String(month + 1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+
+            dayEl.className = "cal-day";
+            dayEl.dataset.dateKey = dateKey;
+
+            const isToday = d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+            if (isToday) dayEl.classList.add("today");
+
+            const memories = data[dateKey] || [];
+            if (memories.length > 0) {
+                dayEl.classList.add("has-memory");
+                // Show thumbnail of first photo (if available)
+                const firstWithPhoto = memories.find(m => m.photo);
+                if (firstWithPhoto) {
+                    const thumb = document.createElement("img");
+                    thumb.className = "cal-day-thumb";
+                    thumb.src = firstWithPhoto.photo;
+                    thumb.alt = "Recuerdo";
+                    dayEl.appendChild(thumb);
+                }
+            }
+
+            const numSpan = document.createElement("span");
+            numSpan.className = "cal-day-number";
+            numSpan.textContent = d;
+            dayEl.appendChild(numSpan);
+
+            dayEl.addEventListener("click", () => calOpenModal(dateKey));
+            calGrid.appendChild(dayEl);
+        }
+
+        // Refresh side panel for this month
+        calRenderPanel();
+    }
+
+    /* --- Render side panel with all memories of this month --- */
+    function calRenderPanel() {
+        if (!calMemoriesList) return;
+        const data   = calLoad();
+        const year   = calCurrentDate.getFullYear();
+        const month  = String(calCurrentDate.getMonth() + 1).padStart(2,"0");
+
+        // Collect all memory entries this month
+        const entries = [];
+        Object.keys(data).forEach(key => {
+            if (key.startsWith(`${year}-${month}-`)) {
+                (data[key] || []).forEach(m => entries.push({ key, ...m }));
+            }
+        });
+
+        calMemoriesList.innerHTML = "";
+
+        if (entries.length === 0) {
+            calMemoriesList.innerHTML = `<p class="cal-empty-msg">Haz clic en una fecha para agregar recuerdos especiales 💕</p>`;
+            return;
+        }
+
+        entries.forEach(entry => {
+            const card = document.createElement("div");
+            card.className = "cal-memory-card-side";
+            card.addEventListener("click", () => calOpenModal(entry.key));
+
+            // Format date label
+            const parts = entry.key.split("-");
+            const dateLabel = `${parts[2]} de ${MONTHS_ES[parseInt(parts[1])-1]} ${parts[0]}`;
+
+            card.innerHTML = `
+                ${entry.photo ? `<img src="${entry.photo}" alt="Recuerdo">` : ""}
+                <div class="cal-memory-card-side-info">
+                    <div class="cal-memory-card-side-date">📅 ${dateLabel}</div>
+                    <div class="cal-memory-card-side-desc">${entry.description || ""}</div>
+                </div>
+            `;
+            calMemoriesList.appendChild(card);
+        });
+    }
+
+    /* --- Open modal for a specific date key --- */
+    function calOpenModal(dateKey) {
+        if (!calModalOverlay) return;
+        calSelectedDateKey = dateKey;
+        calPhotoDataURL = null;
+
+        // Reset form
+        if (calPhotoPreview) { calPhotoPreview.src = ""; calPhotoPreview.classList.add("hidden"); }
+        if (calPhotoDrop)    calPhotoDrop.classList.remove("hidden");
+        if (calDescription)  calDescription.value = "";
+        if (calCharNum)      calCharNum.textContent = "0";
+        if (calPhotoInput)   calPhotoInput.value = "";
+
+        // Set modal date title
+        const parts = dateKey.split("-");
+        const dateLabel = `📅 ${parts[2]} de ${MONTHS_ES[parseInt(parts[1])-1]} ${parts[0]}`;
+        if (calModalTitle) calModalTitle.textContent = dateLabel;
+
+        // Render existing memories for this date
+        calRenderModalMemories(dateKey);
+
+        calModalOverlay.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+    }
+
+    function calCloseModal() {
+        if (calModalOverlay) calModalOverlay.classList.add("hidden");
+        document.body.style.overflow = "";
+    }
+
+    /* --- Render existing memories inside the modal --- */
+    function calRenderModalMemories(dateKey) {
+        if (!calModalMemories) return;
+        calModalMemories.innerHTML = "";
+
+        const data = calLoad();
+        const memories = data[dateKey] || [];
+
+        memories.forEach((mem, idx) => {
+            const item = document.createElement("div");
+            item.className = "cal-memory-item";
+
+            item.innerHTML = `
+                ${mem.photo ? `<img src="${mem.photo}" alt="Recuerdo ${idx+1}">` : ""}
+                <div class="cal-memory-item-desc">${mem.description || ""}</div>
+                <button class="cal-memory-delete" data-idx="${idx}" title="Eliminar recuerdo">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            `;
+
+            // Delete button
+            item.querySelector(".cal-memory-delete").addEventListener("click", (e) => {
+                e.stopPropagation();
+                const i = parseInt(e.currentTarget.dataset.idx);
+                const d = calLoad();
+                if (d[dateKey]) {
+                    d[dateKey].splice(i, 1);
+                    if (d[dateKey].length === 0) delete d[dateKey];
+                    calSave(d);
+                    calRenderModalMemories(dateKey);
+                    calRender(); // refresh grid
+                }
+            });
+
+            calModalMemories.appendChild(item);
+        });
+    }
+
+    /* --- Photo input handling --- */
+    if (calPhotoDrop) {
+        calPhotoDrop.addEventListener("click", () => { if (calPhotoInput) calPhotoInput.click(); });
+    }
+
+    if (calPhotoInput) {
+        calPhotoInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                calPhotoDataURL = ev.target.result;
+                if (calPhotoPreview) {
+                    calPhotoPreview.src = calPhotoDataURL;
+                    calPhotoPreview.classList.remove("hidden");
+                }
+                if (calPhotoDrop) calPhotoDrop.classList.add("hidden");
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    /* --- Character counter --- */
+    if (calDescription) {
+        calDescription.addEventListener("input", () => {
+            if (calCharNum) calCharNum.textContent = calDescription.value.length;
+        });
+    }
+
+    /* --- Save memory --- */
+    if (calSaveMemory) {
+        calSaveMemory.addEventListener("click", () => {
+            const desc = calDescription ? calDescription.value.trim() : "";
+            if (!calPhotoDataURL && !desc) {
+                calDescription.style.borderColor = "rgba(255,51,102,0.8)";
+                setTimeout(() => { calDescription.style.borderColor = ""; }, 1500);
+                return;
+            }
+
+            const data = calLoad();
+            if (!data[calSelectedDateKey]) data[calSelectedDateKey] = [];
+            data[calSelectedDateKey].push({
+                photo: calPhotoDataURL || null,
+                description: desc
+            });
+            calSave(data);
+
+            // Play reveal chime
+            playSecretRevealChime();
+
+            // Reset form
+            calPhotoDataURL = null;
+            if (calPhotoPreview) { calPhotoPreview.src = ""; calPhotoPreview.classList.add("hidden"); }
+            if (calPhotoDrop)    calPhotoDrop.classList.remove("hidden");
+            if (calDescription)  calDescription.value = "";
+            if (calCharNum)      calCharNum.textContent = "0";
+            if (calPhotoInput)   calPhotoInput.value = "";
+
+            calRenderModalMemories(calSelectedDateKey);
+            calRender(); // refresh grid + panel
+
+            // Sparkle burst
+            triggerBurst(window.innerWidth / 2, window.innerHeight / 2, 25);
+        });
+    }
+
+    /* --- Modal close --- */
+    if (calModalClose) {
+        calModalClose.addEventListener("click", calCloseModal);
+    }
+    if (calModalOverlay) {
+        calModalOverlay.addEventListener("click", (e) => {
+            if (e.target === calModalOverlay) calCloseModal();
+        });
+    }
+
+    /* --- Month navigation --- */
+    if (calPrev) {
+        calPrev.addEventListener("click", () => {
+            calCurrentDate.setMonth(calCurrentDate.getMonth() - 1);
+            playNavigationChime();
+            calRender();
+        });
+    }
+    if (calNext) {
+        calNext.addEventListener("click", () => {
+            calCurrentDate.setMonth(calCurrentDate.getMonth() + 1);
+            playNavigationChime();
+            calRender();
+        });
+    }
+
+    /* --- Initial render --- */
+    calRender();
+
     // Interactive custom hover / clicks
     window.addEventListener("click", (e) => {
         // Only burst when clicking outside main active buttons for natural interactions
@@ -382,9 +698,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ==========================================
-    // 7. WEBAUDIO API ROMANTIC MUSIC BOX SYNTH
-    // ==========================================
+
     let audioCtx = null;
     let musicPlaying = false;
     let sequencerTimer = null;
