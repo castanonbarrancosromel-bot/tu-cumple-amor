@@ -725,12 +725,12 @@ document.addEventListener("DOMContentLoaded", () => {
         ytPlayer = new YT.Player("youtube-player", {
             height: "1",
             width: "1",
-            videoId: "HktsqJ8uoig",
+            videoId: "1P-5P-0wBjo",
             playerVars: {
                 autoplay: 0,
                 controls: 0,
                 loop: 1,
-                playlist: "HktsqJ8uoig"
+                playlist: "1P-5P-0wBjo"
             },
             events: {
                 onReady: () => {
