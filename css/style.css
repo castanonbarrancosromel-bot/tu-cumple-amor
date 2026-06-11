@@ -1923,3 +1923,282 @@ body {
     }
 }
 
+/* ==========================================================================
+   SECTION: 1000 RAZONES POR LAS QUE TE AMO
+   ========================================================================== */
+
+.razones-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0 60px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Header */
+.razones-header {
+    text-align: center;
+    padding: 50px 40px 40px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.razones-header-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(211, 47, 47, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.razones-badge {
+    width: 70px;
+    height: 70px;
+    background: rgba(211, 47, 47, 0.15);
+    border: 2px solid var(--primary-love);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 20px rgba(211, 47, 47, 0.3);
+    position: relative;
+    z-index: 1;
+    animation: heart-beat 1.8s ease-in-out infinite alternate;
+}
+
+.razones-badge i {
+    color: var(--primary-love);
+    font-size: 28px;
+    text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+}
+
+.razones-title {
+    font-size: 46px !important;
+    color: var(--primary-love) !important;
+    text-shadow: 0 0 20px rgba(211, 47, 47, 0.3);
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.razones-mensaje-bonito {
+    max-width: 650px;
+    margin: 0 auto 30px auto;
+    position: relative;
+    z-index: 1;
+    background: rgba(211, 47, 47, 0.05);
+    border: 1px solid rgba(211, 47, 47, 0.2);
+    border-radius: 18px;
+    padding: 20px 28px;
+}
+
+.razones-mensaje-bonito p:first-child {
+    font-family: var(--font-romantic);
+    font-size: 22px;
+    color: var(--primary-love);
+    margin-bottom: 8px;
+}
+
+.razones-mensaje-bonito p:last-child {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+/* Search Bar */
+.razones-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto 18px auto;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(211, 47, 47, 0.35);
+    border-radius: 30px;
+    padding: 12px 22px;
+    position: relative;
+    z-index: 1;
+    transition: var(--transition-smooth);
+}
+
+.razones-search-bar:focus-within {
+    border-color: var(--primary-love);
+    box-shadow: 0 0 15px rgba(211, 47, 47, 0.25);
+}
+
+.razones-search-bar i {
+    color: var(--primary-love);
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.razones-search-bar input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: var(--font-body);
+    width: 100%;
+    font-weight: 400;
+}
+
+.razones-search-bar input::placeholder {
+    color: var(--text-muted);
+}
+
+.razones-counter-display {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+.razones-counter-display span {
+    color: var(--primary-love);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Reasons Grid */
+.razones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Individual Reason Card */
+.razon-card {
+    background: rgba(35, 18, 11, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    backdrop-filter: blur(16px);
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: default;
+}
+
+.razon-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-love), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.razon-card:hover {
+    border-color: rgba(211, 47, 47, 0.4);
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 30px rgba(211, 47, 47, 0.15), 0 0 20px rgba(211, 47, 47, 0.05);
+}
+
+.razon-card:hover::before {
+    opacity: 1;
+}
+
+.razon-numero {
+    font-family: var(--font-romantic);
+    font-size: 15px;
+    color: var(--primary-love);
+    opacity: 0.7;
+    line-height: 1;
+}
+
+.razon-texto {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-weight: 400;
+}
+
+.razon-emoji {
+    font-size: 18px;
+    align-self: flex-end;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+}
+
+.razon-card:hover .razon-emoji {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Footer of the section */
+.razones-footer {
+    text-align: center;
+    padding: 40px 30px;
+    margin-top: 10px;
+}
+
+.razones-footer-hearts {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    animation: float-hearts 3s ease-in-out infinite alternate;
+}
+
+@keyframes float-hearts {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-6px); }
+}
+
+.razones-footer-text {
+    font-size: 28px;
+    color: var(--primary-love);
+    margin-bottom: 12px;
+    text-shadow: 0 0 15px rgba(211, 47, 47, 0.25);
+}
+
+.razones-footer-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: var(--font-heading);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .razones-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 14px;
+    }
+    .razones-header {
+        padding: 35px 22px 28px 22px;
+    }
+    .razones-title {
+        font-size: 34px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .razones-grid {
+        grid-template-columns: 1fr;
+    }
+    .razones-title {
+        font-size: 28px !important;
+    }
+}
+
