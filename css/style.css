@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    CSS DESIGN SYSTEM - REGALO DE AMOR PARA ISELA
    ========================================================================== */
 
@@ -2144,6 +2144,22 @@ body {
     transform: scale(1);
 }
 
+
+/* Cards are visible by default when added via JS */
+.razon-visible {
+    animation: razonFadeIn 0.5s ease forwards;
+}
+
+@keyframes razonFadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Make emoji always visible */
+.razon-visible .razon-emoji {
+    opacity: 0.6;
+    transform: scale(1);
+}
 /* Footer of the section */
 .razones-footer {
     text-align: center;

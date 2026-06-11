@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    INTERACTIVE LOGIC - REGALO DE AMOR PARA ISELA
    ========================================================================== */
 
@@ -2152,64 +2152,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const razEmojiList = ["💕","🌹","✨","💫","❤️","🦋","💖","🌸","💗","⭐","💝","🌟","💞","🌺","💓"];
 
-    function initRazonesSection() {
+    // ── RAZONES: render all cards immediately on page load ──
+    function renderTodasLasRazones(filter) {
         const grid = document.getElementById("razones-grid");
-        const searchInput = document.getElementById("razones-search");
         const showingEl = document.getElementById("razones-showing");
-
         if (!grid) return;
 
-        function renderRazones(filter = "") {
-            grid.innerHTML = "";
-            const filtered = RAZONES.filter(r => r.toLowerCase().includes(filter.toLowerCase()));
-            if (showingEl) showingEl.textContent = filtered.length.toLocaleString('es-MX');
+        const term = (filter || "").toLowerCase();
+        const filtered = term ? RAZONES.filter(r => r.toLowerCase().includes(term)) : RAZONES;
 
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:60px 20px;font-style:italic;">No se encontraron razones con esa búsqueda... pero hay 1000 más que te esperan 💕</div>`;
-                return;
-            }
+        if (showingEl) showingEl.textContent = filtered.length.toLocaleString('es-MX');
 
-            filtered.forEach((razon, index) => {
-                const originalIndex = RAZONES.indexOf(razon);
+        // Build all cards at once with a document fragment for performance
+        const frag = document.createDocumentFragment();
+        if (filtered.length === 0) {
+            const empty = document.createElement("div");
+            empty.style.cssText = "grid-column:1/-1;text-align:center;color:var(--text-muted);padding:60px 20px;font-style:italic;";
+            empty.textContent = "No se encontraron razones... pero hay más de 1000 que te esperan 💕";
+            frag.appendChild(empty);
+        } else {
+            filtered.forEach((razon, i) => {
+                const idx = RAZONES.indexOf(razon);
                 const card = document.createElement("div");
-                card.className = "razon-card";
-                const emoji = razEmojiList[originalIndex % razEmojiList.length];
-                card.innerHTML = `
-                    <div class="razon-numero">Razón #${originalIndex + 1}</div>
-                    <div class="razon-texto">${razon}</div>
-                    <div class="razon-emoji">${emoji}</div>
-                `;
-                // Staggered fade-in animation
-                card.style.opacity = "0";
-                card.style.transform = "translateY(20px)";
-                grid.appendChild(card);
-
-                setTimeout(() => {
-                    card.style.transition = "opacity 0.4s ease, transform 0.4s ease";
-                    card.style.opacity = "1";
-                    card.style.transform = "translateY(0)";
-                }, Math.min(index * 8, 600));
+                card.className = "razon-card razon-visible";
+                const emoji = razEmojiList[idx % razEmojiList.length];
+                card.innerHTML =
+                    `<div class="razon-numero">Razón #${idx + 1}</div>` +
+                    `<div class="razon-texto">${razon}</div>` +
+                    `<div class="razon-emoji">${emoji}</div>`;
+                frag.appendChild(card);
             });
         }
-
-        renderRazones();
-
-        if (searchInput) {
-            searchInput.addEventListener("input", (e) => {
-                renderRazones(e.target.value);
-            });
-        }
+        grid.innerHTML = "";
+        grid.appendChild(frag);
     }
 
-    // Initialize razones when nav button is clicked
-    const navRazones = document.getElementById("nav-btn-razones");
-    let razonesInitialized = false;
-    if (navRazones) {
-        navRazones.addEventListener("click", () => {
-            if (!razonesInitialized) {
-                razonesInitialized = true;
-                initRazonesSection();
-            }
+    // Render immediately at page load so cards are always visible
+    renderTodasLasRazones();
+
+    // Live search filter
+    const razSearchInput = document.getElementById("razones-search");
+    if (razSearchInput) {
+        razSearchInput.addEventListener("input", function() {
+            renderTodasLasRazones(this.value);
         });
     }
 
