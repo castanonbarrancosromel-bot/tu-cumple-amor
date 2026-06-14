@@ -166,17 +166,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (isHidden) {
                     message.classList.remove("hidden-message");
                     message.classList.add("visible-message");
+                    // Remove overflow:hidden so long messages don't get clipped
+                    message.style.overflow = "visible";
                     button.innerHTML = `<i class="fa-solid fa-envelope"></i> Ocultar Mensaje Secreto`;
                     
-                    // Tilt the related photo container momentarily to draw attention
-                    const photoFrame = button.closest(".album-grid").querySelector(".photo-frame-container");
-                    if (photoFrame) {
-                        photoFrame.style.transform = "perspective(1000px) rotateX(10deg) scale(1.03)";
-                        setTimeout(() => { photoFrame.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)"; }, 1200);
+                    // Tilt the related photo container (safely, with null check)
+                    const grid = button.closest(".album-grid");
+                    if (grid) {
+                        const photoFrame = grid.querySelector(".photo-frame-container");
+                        if (photoFrame) {
+                            photoFrame.style.transform = "perspective(1000px) rotateX(10deg) scale(1.03)";
+                            setTimeout(() => { photoFrame.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)"; }, 1200);
+                        }
                     }
                 } else {
                     message.classList.add("hidden-message");
                     message.classList.remove("visible-message");
+                    message.style.overflow = "hidden";
                     button.innerHTML = `<i class="fa-solid fa-envelope-open-text"></i> Revelar Mensaje Secreto`;
                 }
             });
