@@ -412,11 +412,12 @@ body {
 
 /* Princess secret message inner styles */
 .secret-message-princesa p {
-    font-size: 13.5px;
-    line-height: 1.85;
-    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.9;
+    color: #ffffff;
     margin-bottom: 14px;
     text-align: left;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .secret-p-principal {
@@ -660,9 +661,9 @@ body {
 /* 4. Album Grid (Photos + Poems) */
 .album-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: center;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
     margin-top: 40px;
 }
 
@@ -680,8 +681,9 @@ body {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
                 0 0 20px rgba(255, 51, 102, 0.05);
     backdrop-filter: blur(5px);
-    transition: transform 0.1s ease; /* Fluid 3D Tilt */
+    transition: transform 0.1s ease;
     max-width: 100%;
+    width: 100%;
 }
 
 .photo-frame-container:hover {
@@ -691,18 +693,22 @@ body {
 
 .romantic-photo {
     width: 100%;
-    max-height: 480px;
+    max-height: 560px;
     object-fit: cover;
+    object-position: center top;
     border-radius: 10px;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
     display: block;
+    min-height: 320px;
 }
 
 /* Tall aspect ratio handling for photo 3 */
 #img-corazon {
-    max-height: 520px;
-    width: auto;
-    max-width: 250px;
+    max-height: 600px;
+    width: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
 }
 
 .photo-caption {
@@ -720,38 +726,41 @@ body {
 }
 
 .poem-card {
-    padding: 40px;
+    padding: 35px 30px;
 }
 
 .poem-title {
-    font-size: 32px;
+    font-size: 30px;
     color: var(--primary-love);
     margin-bottom: 12px;
     text-align: center;
+    line-height: 1.3;
 }
 
 .poem-lines {
     text-align: center;
-    margin: 25px 0 35px 0;
+    margin: 22px 0 30px 0;
 }
 
 .poem-lines p {
     font-family: var(--font-heading);
-    font-size: 15px;
-    line-height: 1.7;
+    font-size: 16px;
+    line-height: 1.85;
     font-style: italic;
-    color: var(--text-primary);
-    margin-bottom: 4px;
+    color: #ffffff;
+    margin-bottom: 2px;
+    letter-spacing: 0.2px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
 
 .secret-message {
-    background: rgba(255, 51, 102, 0.05);
+    background: rgba(255, 51, 102, 0.07);
     border-left: 4px solid var(--primary-love);
     border-radius: 0 16px 16px 0;
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    font-size: 14px;
+    line-height: 1.8;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
     box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
 }
 
@@ -856,12 +865,16 @@ body {
 @media (max-width: 900px) {
     .album-grid {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 30px;
     }
     
     .reverse-grid {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
+    }
+
+    .princesa-grid {
+        grid-template-columns: 1fr;
     }
     
     #app-main-title {
@@ -885,11 +898,21 @@ body {
     }
     
     .poem-title {
-        font-size: 26px;
+        font-size: 24px;
     }
     
     .poem-lines p {
-        font-size: 13.5px;
+        font-size: 14px;
+    }
+
+    .romantic-photo {
+        max-height: 400px;
+        min-height: 250px;
+    }
+
+    #img-corazon, #img-princesa {
+        max-height: 400px;
+        min-height: 250px;
     }
 }
 
@@ -1134,6 +1157,9 @@ body {
     margin-top: 60px;
     padding-top: 50px;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
 }
 
 .poem-card-princesa {
@@ -1226,9 +1252,12 @@ body {
 }
 
 #img-princesa {
-    max-height: 500px;
-    width: auto;
-    max-width: 280px;
+    max-height: 560px;
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center top;
+    min-height: 320px;
 }
 
 /* ==========================================================================
