@@ -402,6 +402,62 @@ body {
     margin-top: 15px;
 }
 
+/* Override for the expanded princess secret message */
+.secret-message-princesa.visible-message {
+    max-height: 900px;
+    padding: 20px 22px;
+}
+
+/* Princess secret message inner styles */
+.secret-message-princesa p {
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+.secret-p-principal {
+    font-family: var(--font-romantic) !important;
+    font-size: 22px !important;
+    color: #ffb6c1 !important;
+    text-align: center !important;
+    margin-bottom: 18px !important;
+    text-shadow: 0 0 12px rgba(255, 130, 160, 0.5);
+}
+
+.secret-p-cierre {
+    font-weight: 600 !important;
+    color: #fff !important;
+    border-top: 1px solid rgba(255, 182, 193, 0.25);
+    padding-top: 14px !important;
+}
+
+.secret-princesa-header,
+.secret-princesa-footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.secret-princesa-footer {
+    margin-bottom: 0;
+    margin-top: 16px;
+}
+
+.secret-princesa-firma {
+    text-align: center;
+    font-size: 18px;
+    color: #ffb6c1;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 130, 160, 0.4);
+}
+
+
+
 /* 2. Main Album Layout & Navigation */
 #album-content-layout {
     max-width: 1200px;
