@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    CSS DESIGN SYSTEM - REGALO DE AMOR PARA ISELA
    ========================================================================== */
 
@@ -1070,9 +1070,111 @@ body {
 }
 
 
+
+/* Princesa second photo section in corazon */
+.princesa-grid {
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.poem-card-princesa {
+    border-color: rgba(255, 182, 193, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 182, 193, 0.1);
+}
+
+.poem-card-princesa:hover {
+    border-color: rgba(255, 182, 193, 0.45);
+    box-shadow: 0 20px 45px rgba(255, 100, 130, 0.12),
+                0 0 30px rgba(255, 100, 130, 0.06),
+                inset 0 1px 1px rgba(255, 182, 193, 0.15);
+}
+
+.princesa-badge {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 150, 180, 0.08);
+    border: 1px solid rgba(255, 182, 193, 0.35);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 20px rgba(255, 130, 160, 0.2);
+}
+
+.princesa-badge i {
+    color: #ffb6c1;
+    font-size: 24px;
+    text-shadow: 0 0 12px rgba(255, 130, 160, 0.7);
+    animation: crown-float 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes crown-float {
+    0% { transform: scale(1) rotate(-5deg); }
+    100% { transform: scale(1.15) rotate(5deg); }
+}
+
+.poem-card-princesa .poem-title {
+    color: #ffb6c1;
+    text-shadow: 0 0 18px rgba(255, 130, 160, 0.35);
+}
+
+.poem-card-princesa .divider {
+    color: #ffb6c1;
+}
+
+.poem-card-princesa .divider::before {
+    background: linear-gradient(to right, transparent, #ffb6c1);
+}
+
+.poem-card-princesa .divider::after {
+    background: linear-gradient(to left, transparent, #ffb6c1);
+}
+
+.poem-card-princesa .btn-secondary {
+    border-color: rgba(255, 182, 193, 0.45);
+    color: #ffb6c1;
+}
+
+.poem-card-princesa .btn-secondary:hover {
+    background: rgba(255, 130, 160, 0.15);
+    border-color: #ffb6c1;
+    box-shadow: 0 0 20px rgba(255, 130, 160, 0.25);
+    color: #fff;
+}
+
+/* Special glow for princess photo frame */
+.princesa-frame {
+    position: relative;
+}
+
+.princesa-frame::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.4), rgba(211, 47, 47, 0.3), rgba(255, 182, 193, 0.4));
+    z-index: -1;
+    animation: princesa-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes princesa-glow {
+    0% { opacity: 0.4; }
+    100% { opacity: 0.9; box-shadow: 0 0 30px rgba(255, 130, 160, 0.4); }
+}
+
+#img-princesa {
+    max-height: 500px;
+    width: auto;
+    max-width: 280px;
+}
+
 /* ==========================================================================
    PROMESAS (PROMISES) SECTION
    ========================================================================== */
+
 
 .promesas-wrapper {
     display: flex;
