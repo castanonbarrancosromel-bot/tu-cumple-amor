@@ -152,7 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { btn: "btn-secret-corazon", msg: "secret-msg-corazon" },
         { btn: "btn-secret-belleza2", msg: "secret-msg-belleza2" },
         { btn: "btn-secret-belleza3", msg: "secret-msg-belleza3" },
-        { btn: "btn-secret-princesa", msg: "secret-msg-princesa" }
+        { btn: "btn-secret-princesa", msg: "secret-msg-princesa" },
+        { btn: "btn-secret-corazon2", msg: "secret-msg-corazon2" }
     ];
     
     secrets.forEach(secret => {
@@ -733,12 +734,12 @@ document.addEventListener("DOMContentLoaded", () => {
         ytPlayer = new YT.Player("youtube-player", {
             height: "1",
             width: "1",
-            videoId: "M81lyIXsqpw",
+            videoId: "J5RyC2nW0Oo",
             playerVars: {
                 autoplay: 0,
                 controls: 0,
                 loop: 1,
-                playlist: "M81lyIXsqpw"
+                playlist: "J5RyC2nW0Oo"
             },
             events: {
                 onReady: () => {

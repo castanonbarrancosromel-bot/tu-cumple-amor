@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/deseos.css">
 </head>
 <body>
     <!-- Background Canvas for Interactive Particles -->
@@ -83,6 +84,9 @@
                     <button id="nav-btn-razones" class="nav-item" data-target="razones-section">
                         <i class="fa-solid fa-heart-circle-check"></i> <span>1000 Razones</span>
                     </button>
+                    <button id="nav-btn-deseos" class="nav-item" data-target="deseos-section">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Deseos</span>
+                    </button>
                 </nav>
             </header>
 
@@ -93,6 +97,14 @@
                     <div class="heart-badge"><i class="fa-solid fa-heart"></i></div>
                     <h2 class="section-title dancing-font">Bienvenida a nuestro rincón de amor</h2>
                     <p class="love-quote">"Amar no es mirarse el uno al otro; es mirar juntos en la misma dirección."</p>
+
+                    <!-- Mensaje sorpresa animado -->
+                    <div class="sorpresa-banner">
+                        <span class="sorpresa-estrella">✨</span>
+                        <p class="sorpresa-texto dancing-font">Me sorprende que me quieras, Isela...</p>
+                        <span class="sorpresa-estrella">✨</span>
+                    </div>
+
                     <div class="divider"><i class="fa-solid fa-feather"></i></div>
                     
                     <!-- Love Counter Component -->
@@ -386,6 +398,44 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Tercera foto en corazon-section: Selfie con stickers -->
+                <div class="album-grid corazon2-grid">
+                    <div class="photo-column">
+                        <div class="photo-frame-container corazon2-frame" data-tilt>
+                            <img src="images/corazon2.jpg" alt="Isela hermosa con stickers de amor" class="romantic-photo" id="img-corazon2">
+                            <div class="photo-caption">Así de linda eres tú, mi amor 🥰</div>
+                        </div>
+                    </div>
+                    <div class="poem-column">
+                        <div class="glass-card poem-card">
+                            <h2 class="poem-title dancing-font">El Milagro de Tu Amor</h2>
+                            <div class="divider"><i class="fa-solid fa-heart"></i></div>
+                            <div class="poem-lines">
+                                <p>Me sorprende cada día que me quieras,</p>
+                                <p>siendo tú lo más hermoso que he podido ver.</p>
+                                <p>Que entre tantos caminos y primaveras</p>
+                                <p>hayas elegido caminar junto a mí en esta vida... no lo puedo creer.</p>
+                                <br>
+                                <p>Esa carita tuya, tan bonita y sincera,</p>
+                                <p>con Snoopy y Pikachu, tierna y especial,</p>
+                                <p>me recuerda que contigo el mundo es primavera,</p>
+                                <p>que tu amor, Isela, es mi mayor regalo terrenal.</p>
+                                <br>
+                                <p>No entiendo qué hice para merecer</p>
+                                <p>que una chica como tú me diera su querer.</p>
+                                <p>Pero lo que sí sé, con todo mi ser,</p>
+                                <p>es que nunca voy a soltar tu mano... nunca. 💛</p>
+                            </div>
+                            <button id="btn-secret-corazon2" class="btn-secondary">
+                                <i class="fa-solid fa-envelope-open-text"></i> Revelar Mensaje Secreto
+                            </button>
+                            <div id="secret-msg-corazon2" class="secret-message hidden-message">
+                                <p>Isela, cuando te miro en esta foto con tus stickers de Snoopy y Pikachu me parece tan tierna y auténtica que me derrito por dentro. 😭💛 Me sorprende de verdad que alguien tan preciosa como tú quiera estar conmigo. No me la creo. Cada vez que me mandas una foto así, me la guardo en el corazón para siempre. ¡Gracias por quererme, mi amor! 🐾💛✨</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- SECTION 5.5: Promises -->
@@ -554,6 +604,154 @@
                 </div>
             </section>
 
+            <!-- SECTION: Pozo de los Deseos -->
+            <section id="deseos-section" class="album-section">
+                <div class="deseos-wrapper">
+
+                    <!-- Header -->
+                    <div class="glass-card deseos-header">
+                        <div class="deseos-stars-bg"></div>
+                        <div class="pozo-badge">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h2 class="deseos-title dancing-font">El Pozo de los Deseos</h2>
+                        <p class="deseos-subtitle">Cierra los ojos, piensa en tu deseo más especial y lánzalo al pozo... ✨</p>
+                    </div>
+
+                    <!-- Wishing Well Visual & Form -->
+                    <div class="deseos-main-grid">
+
+                        <!-- Wishing Well Illustration -->
+                        <div class="pozo-visual-column">
+                            <div class="pozo-container">
+                                <!-- Stars around the well -->
+                                <div class="pozo-star pozo-star-1">✦</div>
+                                <div class="pozo-star pozo-star-2">✧</div>
+                                <div class="pozo-star pozo-star-3">✦</div>
+                                <div class="pozo-star pozo-star-4">✧</div>
+                                <div class="pozo-star pozo-star-5">✦</div>
+
+                                <!-- Well SVG -->
+                                <div class="pozo-well">
+                                    <div class="pozo-roof">
+                                        <div class="pozo-roof-top"></div>
+                                        <div class="pozo-roof-pole pozo-roof-pole-left"></div>
+                                        <div class="pozo-roof-pole pozo-roof-pole-right"></div>
+                                        <div class="pozo-bucket-rope"></div>
+                                        <div class="pozo-bucket">
+                                            <i class="fa-solid fa-bucket"></i>
+                                        </div>
+                                    </div>
+                                    <div class="pozo-body">
+                                        <div class="pozo-water">
+                                            <div class="pozo-water-wave"></div>
+                                            <div class="pozo-water-wave-2"></div>
+                                        </div>
+                                        <!-- Coins in water -->
+                                        <div id="pozo-coins-container" class="pozo-coins-container"></div>
+                                    </div>
+                                    <div class="pozo-base"></div>
+                                </div>
+
+                                <p class="pozo-hint"><i class="fa-solid fa-coins"></i> Cada deseo es una moneda de amor</p>
+                            </div>
+                        </div>
+
+                        <!-- Form Column -->
+                        <div class="deseos-form-column">
+                            <div class="glass-card deseos-form-card">
+                                <div class="deseos-form-badge">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <h3 class="deseos-form-title dancing-font">Anota tu Deseo</h3>
+                                <p class="deseos-form-sub">Escribe desde el corazón, sin filtros, con amor 💛</p>
+
+                                <!-- Formspree Form -->
+                                <form id="deseos-form" action="https://formspree.io/f/xnjyyygg" method="POST" class="deseos-formulario">
+                                    <!-- Honeypot spam filter -->
+                                    <input type="text" name="_gotcha" style="display:none">
+
+                                    <div class="deseos-field-group">
+                                        <label class="deseos-label" for="deseo-nombre">
+                                            <i class="fa-solid fa-user-heart"></i> ¿Quién envía este deseo?
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="deseo-nombre"
+                                            name="nombre"
+                                            class="deseos-input"
+                                            placeholder="Tu nombre o apodo especial..."
+                                            required
+                                        >
+                                    </div>
+
+                                    <div class="deseos-field-group">
+                                        <label class="deseos-label" for="deseo-texto">
+                                            <i class="fa-solid fa-wand-magic-sparkles"></i> Tu deseo especial
+                                        </label>
+                                        <textarea
+                                            id="deseo-texto"
+                                            name="deseo"
+                                            class="deseos-textarea"
+                                            placeholder="Cierra los ojos... ¿qué deseas con todo tu corazón? Escríbelo aquí... 🌟"
+                                            rows="5"
+                                            maxlength="500"
+                                            required
+                                        ></textarea>
+                                        <div class="deseos-char-count"><span id="deseo-char-num">0</span>/500</div>
+                                    </div>
+
+                                    <div class="deseos-field-group">
+                                        <label class="deseos-label" for="deseo-categoria">
+                                            <i class="fa-solid fa-heart"></i> Categoría del deseo
+                                        </label>
+                                        <select id="deseo-categoria" name="categoria" class="deseos-select">
+                                            <option value="">Elige una categoría... ✨</option>
+                                            <option value="amor">💑 Amor y Relación</option>
+                                            <option value="suenos">🌙 Sueños y Metas</option>
+                                            <option value="familia">👨‍👩‍👧 Familia y Hogar</option>
+                                            <option value="aventura">🌍 Aventura y Viajes</option>
+                                            <option value="felicidad">✨ Felicidad y Bienestar</option>
+                                            <option value="otro">🌟 Otro deseo especial</option>
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" id="btn-enviar-deseo" class="btn-deseo-enviar">
+                                        <i class="fa-solid fa-coins"></i>
+                                        <span>Lanzar mi Deseo al Pozo</span>
+                                        <div class="btn-shimmer"></div>
+                                    </button>
+                                </form>
+
+                                <!-- Success State -->
+                                <div id="deseos-success" class="deseos-success hidden">
+                                    <div class="deseos-success-icon">🌟</div>
+                                    <h3 class="dancing-font">¡Tu deseo voló al universo!</h3>
+                                    <p>Las estrellas lo han recibido... que se haga realidad muy pronto. ✨💛</p>
+                                    <button id="btn-otro-deseo" class="btn-secondary">
+                                        <i class="fa-solid fa-plus"></i> Enviar otro deseo
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Wishes counter -->
+                            <div class="deseos-counter-card glass-card">
+                                <i class="fa-solid fa-coins"></i>
+                                <span id="deseos-counter-num">0</span>
+                                <span>deseos lanzados esta sesión</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating quote -->
+                    <div class="deseos-quote glass-card">
+                        <p class="dancing-font">"Los deseos más bonitos nacen del corazón que ama sin condiciones..."</p>
+                        <span>— Para ti, Isela, con todo mi amor 💛</span>
+                    </div>
+
+                </div>
+            </section>
+
         </div>
     </main>
 
@@ -593,5 +791,6 @@
 
     <!-- Scripts -->
     <script src="js/script.js"></script>
+    <script src="js/deseos.js"></script>
 </body>
 </html>
