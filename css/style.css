@@ -1306,6 +1306,164 @@ body::after {
     color: #fff;
 }
 
+/* === Gatita & Monita New Photo Sections === */
+
+/* Gatita section: 4th photo in Tu Belleza */
+.belleza4-grid {
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+}
+
+.poem-card-gatita {
+    border-color: rgba(245, 190, 90, 0.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(245, 190, 90, 0.1);
+}
+
+.poem-card-gatita:hover {
+    border-color: rgba(245, 190, 90, 0.5);
+    box-shadow: 0 20px 45px rgba(245, 180, 50, 0.14),
+                0 0 30px rgba(245, 180, 50, 0.07),
+                inset 0 1px 1px rgba(245, 190, 90, 0.18);
+}
+
+.gatita-badge {
+    width: 64px;
+    height: 64px;
+    background: radial-gradient(circle, rgba(245, 190, 90, 0.2) 0%, rgba(245, 190, 90, 0.04) 100%);
+    border: 2px solid rgba(245, 190, 90, 0.4);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 25px rgba(245, 190, 90, 0.3);
+}
+
+.gatita-badge i {
+    color: #f5be5a;
+    font-size: 26px;
+    text-shadow: 0 0 14px rgba(245, 190, 90, 0.7);
+    animation: heart-beat 1.8s infinite alternate;
+}
+
+.poem-card-gatita .poem-title {
+    color: #f5c842;
+    text-shadow: 0 0 18px rgba(245, 190, 90, 0.35);
+}
+
+.poem-card-gatita .divider {
+    color: #f5be5a;
+}
+
+.poem-card-gatita .divider::before {
+    background: linear-gradient(to right, transparent, #f5be5a);
+}
+
+.poem-card-gatita .divider::after {
+    background: linear-gradient(to left, transparent, #f5be5a);
+}
+
+.poem-card-gatita .btn-secondary {
+    border-color: rgba(245, 190, 90, 0.4);
+    color: #f5c842;
+}
+
+.poem-card-gatita .btn-secondary:hover {
+    background: rgba(245, 190, 90, 0.15);
+    border-color: #f5c842;
+    box-shadow: 0 0 18px rgba(245, 190, 90, 0.3);
+    color: #fff;
+}
+
+/* Monita section: 5th photo in Tu Belleza */
+.belleza5-grid {
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+.poem-card-monita {
+    border-color: rgba(255, 140, 180, 0.22);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 140, 180, 0.1);
+}
+
+.poem-card-monita:hover {
+    border-color: rgba(255, 140, 180, 0.45);
+    box-shadow: 0 20px 45px rgba(255, 100, 150, 0.12),
+                0 0 30px rgba(255, 100, 150, 0.06),
+                inset 0 1px 1px rgba(255, 140, 180, 0.16);
+}
+
+.monita-badge {
+    width: 64px;
+    height: 64px;
+    background: radial-gradient(circle, rgba(255, 140, 180, 0.18) 0%, rgba(255, 140, 180, 0.04) 100%);
+    border: 2px solid rgba(255, 140, 180, 0.38);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 25px rgba(255, 140, 180, 0.28);
+}
+
+.monita-badge i {
+    color: #ff8fb0;
+    font-size: 26px;
+    text-shadow: 0 0 14px rgba(255, 140, 180, 0.7);
+    animation: heart-beat 2s infinite alternate;
+}
+
+.poem-card-monita .poem-title {
+    color: #ff8fb0;
+    text-shadow: 0 0 18px rgba(255, 140, 180, 0.3);
+}
+
+.poem-card-monita .divider {
+    color: #ff8fb0;
+}
+
+.poem-card-monita .divider::before {
+    background: linear-gradient(to right, transparent, #ff8fb0);
+}
+
+.poem-card-monita .divider::after {
+    background: linear-gradient(to left, transparent, #ff8fb0);
+}
+
+.poem-card-monita .poem-subtitle {
+    color: rgba(255, 200, 220, 0.8);
+}
+
+.poem-card-monita .btn-secondary {
+    border-color: rgba(255, 140, 180, 0.4);
+    color: #ff8fb0;
+}
+
+.poem-card-monita .btn-secondary:hover {
+    background: rgba(255, 140, 180, 0.15);
+    border-color: #ff8fb0;
+    box-shadow: 0 0 18px rgba(255, 140, 180, 0.28);
+    color: #fff;
+}
+
+/* Special image style for vertical/portrait new photos */
+#img-gatita,
+#img-monita {
+    max-height: 640px;
+    object-fit: cover;
+    object-position: center top;
+}
+
 /* Princesa second photo section in corazon */
 .princesa-grid {
     margin-top: 60px;

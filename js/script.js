@@ -153,7 +153,9 @@ document.addEventListener("DOMContentLoaded", () => {
         { btn: "btn-secret-belleza2", msg: "secret-msg-belleza2" },
         { btn: "btn-secret-belleza3", msg: "secret-msg-belleza3" },
         { btn: "btn-secret-princesa", msg: "secret-msg-princesa" },
-        { btn: "btn-secret-corazon2", msg: "secret-msg-corazon2" }
+        { btn: "btn-secret-corazon2", msg: "secret-msg-corazon2" },
+        { btn: "btn-secret-gatita", msg: "secret-msg-gatita" },
+        { btn: "btn-secret-monita", msg: "secret-msg-monita" }
     ];
     
     secrets.forEach(secret => {
